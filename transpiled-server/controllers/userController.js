@@ -59,9 +59,20 @@ exports.addUser = function (req, res) {
     displayName: req.body.displayName,
     image: req.body.image,
     skills: req.body.skills,
-    available: req.body.available
+    available: req.body.available,
+    contactInfoList: req.body.contactInfoList
   });
   user.save().then(function (user) {
+    // const contactinfo = new ContactInfo({
+    //   user: user._id,
+    //   type: user.contactInfoList[0],
+    //   info: "sup",
+    // });
+    // contactinfo.save().catch((err) => {
+    //   res.status(500).json({
+    //     error: err,
+    //   });
+    // });
     res.status(201).json({
       message: "Created user successfully",
       createdUser: {
@@ -72,6 +83,7 @@ exports.addUser = function (req, res) {
         image: user.image,
         skills: user.skills,
         available: user.available,
+        contactInfoList: user.contactInfoList,
         request: {
           type: "GET",
           url: _config["default"].hostUrl + "users/" + user._id

@@ -34,7 +34,7 @@ exports.getUser = (req, res) => {
           image: user.image,
           skills: user.skills,
           available: user.available,
-          contactInfoList: user.contactInfoList,
+          contactInfoList: user.contactInfoList
         });
       } else
         res.status(404).json({

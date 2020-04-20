@@ -8,19 +8,19 @@ Back-end server for the android-application Eino
 
     git clone https://github.com/Poufy/EinoServer.git
     cd EinoServer
-    npm run build
     npm install
 ```
 You also need to create a config folder in the root directory with a config.js file with a json object that has
 a hostURL attribute that specifies the IP you're hosting on. I suggest http://localhost:3000, and you also need dbConnectionString attribute to store your connection string to your mongodb database.
 
-Then
+Follow that by
 
 ```shell
 
+    npm run build
     node transpiled-server/app.js
 ```
-and then you have access to the end-points.
+and then the server is ready to go!
 
 # Routes
 
@@ -28,11 +28,12 @@ and then you have access to the end-points.
 ----
 
 * **End-Points**
-  'GET' /users/ To return all users
 
-  'GET' /users/:id To return a specific user
+  `GET` /users/ To return all users
 
-  'POST' /users/ To add a user
+  `GET` /users/:id To return a specific user
+
+  `POST` /users/ To add a user
 
 * **Success Response:**
 

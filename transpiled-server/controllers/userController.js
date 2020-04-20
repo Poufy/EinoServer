@@ -4,6 +4,8 @@ var _mongoose = _interopRequireDefault(require("mongoose"));
 
 var _User = _interopRequireDefault(require("../models/User"));
 
+var _config = _interopRequireDefault(require("../../config/config"));
+
 var _ContactInfo = _interopRequireDefault(require("../models/ContactInfo"));
 
 var _locus = _interopRequireDefault(require("locus"));
@@ -72,7 +74,7 @@ exports.addUser = function (req, res) {
         available: user.available,
         request: {
           type: "GET",
-          url: "http://localhost:3000/api/" + user._id
+          url: _config["default"].hostUrl + "users/" + user._id
         }
       }
     });

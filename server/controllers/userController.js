@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/User";
+import config from "../../config/config";
 import ContactInfo from "../models/ContactInfo";
 import locus from 'locus';
 
@@ -73,7 +74,7 @@ exports.addUser = (req, res) => {
           available: user.available,
           request: {
             type: "GET",
-            url: "http://localhost:3000/api/" + user._id,
+            url: config.hostUrl + "users/" + user._id
           },
         },
       });

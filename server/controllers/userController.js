@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/User";
 import config from "../../config/config";
-import ContactInfo from "../models/ContactInfo";
 import locus from "locus";
 
 exports.getUsers = (req, res) => {
@@ -63,18 +62,6 @@ exports.addUser = (req, res) => {
   user
     .save()
     .then((user) => {
-      // const contactinfo = new ContactInfo({
-      //   user: user._id,
-      //   type: user.contactInfoList[0],
-      //   info: "sup",
-      // });
-
-      // contactinfo.save().catch((err) => {
-      //   res.status(500).json({
-      //     error: err,
-      //   });
-      // });
-
       res.status(201).json({
         message: "Created user successfully",
         createdUser: {

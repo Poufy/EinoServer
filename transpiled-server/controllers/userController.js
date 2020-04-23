@@ -6,19 +6,17 @@ var _User = _interopRequireDefault(require("../models/User"));
 
 var _config = _interopRequireDefault(require("../../config/config"));
 
-var _ContactInfo = _interopRequireDefault(require("../models/ContactInfo"));
-
 var _locus = _interopRequireDefault(require("locus"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 exports.getUsers = function (req, res) {
   _User["default"].find().select().exec().then(function (users) {
-    var response = {
-      count: users.length,
-      result: users
-    };
-    res.status(200).json(response);
+    //   const response = {
+    //     count: users.length,
+    //     result: users,
+    //   };
+    res.status(200).json(users);
   })["catch"](function (err) {
     res.status(500).json({
       error: err
@@ -63,16 +61,6 @@ exports.addUser = function (req, res) {
     contactInfoList: req.body.contactInfoList
   });
   user.save().then(function (user) {
-    // const contactinfo = new ContactInfo({
-    //   user: user._id,
-    //   type: user.contactInfoList[0],
-    //   info: "sup",
-    // });
-    // contactinfo.save().catch((err) => {
-    //   res.status(500).json({
-    //     error: err,
-    //   });
-    // });
     res.status(201).json({
       message: "Created user successfully",
       createdUser: {

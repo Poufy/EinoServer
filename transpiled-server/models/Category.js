@@ -7,6 +7,8 @@ exports["default"] = void 0;
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
+var _User = _interopRequireDefault(require("./User"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var categorySchema = _mongoose["default"].Schema({
@@ -15,8 +17,12 @@ var categorySchema = _mongoose["default"].Schema({
     type: String,
     required: true
   },
-  subCategories: [String] //Optional field
-
+  subCategories: [String],
+  //Optional field
+  users: [{
+    type: _mongoose["default"].Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 });
 
 var _default = _mongoose["default"].model('Category', categorySchema);

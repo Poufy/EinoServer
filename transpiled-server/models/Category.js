@@ -7,8 +7,6 @@ exports["default"] = void 0;
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
-var _User = _interopRequireDefault(require("./User"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var categorySchema = _mongoose["default"].Schema({

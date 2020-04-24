@@ -10,12 +10,20 @@ var _locus = _interopRequireDefault(require("locus"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 exports.getUsers = function (req, res) {
   _User["default"].find().select().exec().then(function (users) {
-    //   const response = {
-    //     count: users.length,
-    //     result: users,
-    //   };
     res.status(200).json(users);
   })["catch"](function (err) {
     res.status(500).json({
@@ -56,7 +64,7 @@ exports.addUser = function (req, res) {
     password: req.body.password,
     displayName: req.body.displayName,
     image: req.body.image,
-    skills: req.body.skills,
+    skills: [],
     available: req.body.available,
     contactInfoList: req.body.contactInfoList
   });
@@ -81,6 +89,23 @@ exports.addUser = function (req, res) {
   })["catch"](function (err) {
     res.status(500).json({
       error: err
+    });
+  });
+};
+
+exports.addUserSkills = function (req, res) {
+  _User["default"].findOneAndUpdate({
+    email: req.params.email
+  }, {
+    $push: {
+      skills: req.body.skills
+    }
+  }).exec().then(function (user) {
+    var _user$skills;
+
+    res.status(200).json({
+      message: "Skills were added to the users object",
+      skills: (_user$skills = user.skills).concat.apply(_user$skills, _toConsumableArray(req.body.skills))
     });
   });
 };

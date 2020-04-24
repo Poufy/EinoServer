@@ -20,17 +20,13 @@ exports.getCategories = function (req, res) {
   });
 };
 
-exports.getCategory = function (req, res) {
+exports.getUsersInCategory = function (req, res) {
   _Category["default"].findOne({
     type: req.params.type
-  }).populate('users').exec().then(function (category) {
+  }).populate("users").exec().then(function (category) {
     if (category) {
-      eval(_locus["default"]);
-      res.status(200).json(category.users[0].displayName // _id: category._id,
-      // type: category.type,
-      // subCategories: category.subCategories,
-      // users: category.users
-      );
+      //? for testing eval(locus);
+      res.status(200).json(category.users);
     } else res.status(404).json({
       message: "No such Category with this ID."
     });
@@ -68,4 +64,7 @@ exports.addCategory = function (req, res) {
       error: err
     });
   });
-};
+}; //! DELETE IF NOT NEEDE
+// exports.patchUsersInCategory = (req, res) => {
+//   Category.findOneAndUpdate({type: req.params.type}, )
+// }

@@ -66,3 +66,7 @@ exports.addCategory = (req, res) => {
       });
     });
 };
+//! DELETE IF NOT NEEDE
+// exports.patchUsersInCategory = (req, res) => {
+//   Category.findOneAndUpdate({type: req.params.type}, )
+// }

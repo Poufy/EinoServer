@@ -63,7 +63,7 @@ exports.addUser = function (req, res) {
     email: req.body.email,
     password: req.body.password,
     displayName: req.body.displayName,
-    image: req.body.image,
+    image: req.file.path,
     skills: [],
     available: req.body.available,
     contactInfoList: req.body.contactInfoList
@@ -105,7 +105,27 @@ exports.addUserSkills = function (req, res) {
 
     res.status(200).json({
       message: "Skills were added to the users object",
-      skills: (_user$skills = user.skills).concat.apply(_user$skills, _toConsumableArray(req.body.skills))
+      skills: (_user$skills = user.skills).concat.apply(_user$skills, _toConsumableArray(req.body.skills)) //?concat and the spread operator to print the current lost of skilss
+
+    });
+  });
+}; //takes a type on the parameter
+
+
+exports.deleteUser = function (req, res) {
+  _User["default"].remove({
+    _id: req.params.id
+  }).exec().then(function (user) {
+    res.status(200).json({
+      message: "User Deleted",
+      request: {
+        type: "GET",
+        url: _config["default"].hostUrl + "/users"
+      }
+    });
+  })["catch"](function (err) {
+    res.status(500).json({
+      error: err
     });
   });
 };

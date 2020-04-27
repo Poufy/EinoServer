@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { get } from "mongoose";
 import Category from "../models/Category";
 import config from "../../config/config";
 import locus from "locus";
@@ -40,7 +40,7 @@ exports.addCategory = (req, res) => {
     _id: new mongoose.Types.ObjectId(),
     type: req.body.type,
     subCategories: req.body.subCategories,
-    users: req.body.users, //!REPLACE THIS WITH AN EMPTY ARRAY AFTER TESTING
+    users: [],
   });
 
   category
@@ -66,7 +66,37 @@ exports.addCategory = (req, res) => {
       });
     });
 };
-//! DELETE IF NOT NEEDE
-// exports.patchUsersInCategory = (req, res) => {
-//   Category.findOneAndUpdate({type: req.params.type}, )
-// }
+
+//take a body of _id:
+exports.updateCategory = (req, res) => {
+  Category.findOneAndUpdate(
+    { type: req.params.type },
+    { $push: { users: req.body._id } }
+  )
+    .exec()
+    .then((category) => {
+      res.status(200).json({
+        message: `user was added to the users array on ${category.type} object`,
+      });
+    });
+};
+
+//takes a type on the parameter
+exports.deleteCategory = (req, res) => {
+  Category.remove({ type: req.params.type })
+    .exec()
+    .then((category) => {
+      res.status(200).json({
+        message: "Category Deleted",
+        request: {
+          type: "GET",
+          url: config.hostUrl + "/categories"
+        },
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err
+      });
+    });
+};
